@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diseña Tu Casa</title>
+</head>
+<body>
+    <h1>Diseña Tu Casa con OpenAI</h1>
+
+    <h2>Subir archivo Excel con coordenadas</h2>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <button type="submit">Subir y Graficar</button>
+    </form>
+
+    <h2>Obtener diseño de casa desde OpenAI</h2>
+    <button onclick="designHouse()">Diseñar Casa</button>
+    <p id="response"></p>
+
+    <script>
+        function designHouse() {
+            fetch('/design_with_api', {
+                method: 'POST'
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('response').textContent = data;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('response').textContent = 'Error al procesar la solicitud.';
+            });
+        }
+    </script>
+</body>
+</html>
